@@ -1,6 +1,5 @@
 import { Hotels } from './../../hotels';
 import { Component, OnInit, Input, Output, EventEmitter, HostBinding } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
 
 
 
@@ -11,23 +10,25 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class HotelsComponent implements OnInit {
 
-  @Input() hotel: Hotels;
-  @Output() hotelToDelete: EventEmitter<Hotels>;
-  @Output() updateHotel: EventEmitter<Hotels>;
+  @Output() hotelToDelete: EventEmitter<Hotels> = new EventEmitter();;
+  @Output() updateHotel: EventEmitter<Hotels> = new EventEmitter();;
+
   @HostBinding('attr.class') cssClass = 'row';
+  @Input() hotel: Hotels;
 
   constructor() {
-   }
 
-  ngOnInit() {
   }
 
   public deleteHotel(): void {
     this.hotelToDelete.emit(this.hotel);
-    }
-    public changeContent(): void {
+  }
+  public changeContent(): void {
     this.updateHotel.emit(this.hotel);
-    }
+  }
+
+  ngOnInit() {
+  }
     
 
 }

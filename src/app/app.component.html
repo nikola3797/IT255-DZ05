@@ -1,40 +1,46 @@
 
 <head>
-  
-  <meta charset="utf-8">
+  <title>IT255-DZ07-3393</title>
 </head>
-
 <body>
-  <div class="container mt-5 mb-5">
-    <div class="">
-      <h5 class="card-header info-color white-text text-center py-4">
-       
-      </h5>
-      <div class="card-body px-lg-5 pt-0">
-        <form class="text-center" action="#!">
-          <div class="md-form">
-            <label for="type" class="labele">Naziv Hotela:</label>
-            <input class="form-control" style="text-align:center" #newtitle placeholder="ime" name="type">
-          </div>
-          <div class="md-form">
-            <label for="cena"  class="labele">Cena Hotela:</label>
-            <input type="number" class="form-control" style="text-align:center" #newprice placeholder="price" name="cena">
-          </div>
-          <button type="submit" 
-            (click)="dodajHotel(newtitle,newprice)">UNESI</button>
-          <button type="submit"
-            (click)="changeOrder()">PROMENA REDOSLEDA</button>
-        </form>
-        <div>
-          <div class="md-form">
-            <h3>Pretraga hotela po ceni</h3>
-            <input [(ngModel)]="price" class="form-control" placeholder="CENA" />
-          </div>
-          <div class="container mt-5 mb-5" *ngFor="let hotel of hotels | filter : price; index as i;">
-            <app-hotels class="container mt-5 mb-5" (deleteHotel)="deleteHotel($event)" (changeContent)="changeContent($event)" [hotel]="hotel"></app-hotels>
-          </div>
-        </div>
+  <div>
+    <h3>IT255-DZ07-3393</h3>
+  </div>
+  <div>
+    <form action="#!" [formGroup]="form">
+      <div>
+          <label for="type" class="labele"> Naziv Hotela:</label>
+          <input required id="nazivhotela" #newtitle placeholder="naziv"
+            name="type" formControlName="nazivHotelaForma" [ngClass]="{'is-invalid': form.get('nazivHotelaForma').touched
+             && form.get('nazivHotelaForma').invalid}">
+          <div *ngIf="form.get('nazivHotelaForma').touched && form.get('nazivHotelaForma').invalid" class="invalid-feedback">
+            <div *ngIf="form.get('nazivHotelaForma').errors.required">Naziv je obavezan!</div>
+            <div *ngIf="form.get('nazivHotelaForma').errors.minlength">Naziv mora imati najmanje 6 karaktera!</div>
       </div>
     </div>
+    <div>
+        <label for="price" class="labele"> Cena Hotela:</label>
+        <input required id="cenahotela" type="number" #newprice placeholder="cena" name="cena" formControlName="cenaHotelaForma"
+         [ngClass]="{'is-invalid': form.get('cenaHotelaForma').touched && form.get('cenaHotelaForma').invalid}">
+        <div class="invalid-feedback">
+          <div>Cena je obavezna!</div>
+        </div>
+      </div>
+      <button type="submit"
+            (click)="dodajHotel(newtitle,newprice)" [disabled]="!form.valid"> Potvrdi</button>
+          <button type="submit"
+            (click)="changeOrder()">Promena Redosleda</button>
+
+    </form>
+    <div>
+        <div>
+          <h3>Pretraga hotela po ceni</h3>
+          <input [(ngModel)]="price" placeholder="CENA" />
+        </div>
+        <div  *ngFor="let hotel of hotels | filter : price; index as i;">
+          <app-hotels (hotelToDelete)="deleteHotel($event)" (updateHotel)="changeContent($event)"
+            [hotel]="hotel"></app-hotels>
+        </div>
+      </div>
   </div>
 </body>

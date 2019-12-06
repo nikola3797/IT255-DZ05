@@ -1,6 +1,6 @@
 import { Hotels } from './../hotels';
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import { Component, Input } from '@angular/core';
+import { FormGroup, FormControl, Validators, MinLengthValidator } from '@angular/forms';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -10,10 +10,10 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class AppComponent {
  
 
-  @Input() hotels: Hotels[] = [new Hotels('Hilton', 200), new Hotels('Crown Plaza', 400), new Hotels('Hayatt', 1000), new Hotels('HolidayIn', 100)];
+  @Input() hotels: Hotels[];
   
   constructor() { 
-     
+     this.hotels = [];
    }
 
 
@@ -24,7 +24,7 @@ export class AppComponent {
   }
 
 
-  public deleteHotel(hotels: Hotels): void {
+  public deleteHotel(hotels: Hotels) {
     this.hotels = this.hotels.filter(item => {
       return item.title !== hotels.title
     })
@@ -42,27 +42,24 @@ export class AppComponent {
     }
     
   
-    public changeContent(hotels: Hotels): void {
+    public changeContent(hotels: Hotels) {
       let index = this.hotels.findIndex(i => i.title === hotels.title);
       this.hotels[index].title = this._generateString(6);
     }
 
-  public changeOrder(): void {
-    this.hotels = this.shuffleArray(this.hotels);
-  }
-
-  public shuffleArray = function (array) {
-    var m = array.length, t, i;
-
-    while (m) {
-      i = Math.floor(Math.random() * m--);
-      t = array[m];
-      array[m] = array[i];
-      array[i] = t;
+    shuffle(array) {
+      array.sort(() => Math.random() - 0.5);
+    }
+  
+    changeOrder() {
+      this.shuffle(this.hotels);
     }
 
-    return array;
-  }
+
+  form = new FormGroup({
+    nazivHotelaForma: new FormControl('', [Validators.required, Validators.minLength(6)]),
+    cenaHotelaForma: new FormControl('', Validators.required)
+  })
 
   ngOnInit() {
   }
