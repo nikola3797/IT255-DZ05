@@ -35,7 +35,14 @@ export class DodajHotelComponent implements OnInit {
   public submitForm() {
     let title = this.hotelForm.get('title').value;
     let price = this.hotelForm.get('price').value;
-    let video = new Hotels(title, price);
+    let nights = this.hotelForm.get('nights').value;
+    let video = new Hotels(title, price, nights);
     this.hotelDodati.emit(video);
   }
+
+  public getPrice(numberOfNights: number, price, nights) {
+    numberOfNights = ((price * nights))
+    return numberOfNights;
+  }
+
 }

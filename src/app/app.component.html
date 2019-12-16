@@ -4,7 +4,7 @@
 </head>
 <body>
   <div>
-    <h3>IT255-DZ07-3393</h3>
+    <h3>IT255-DZ08-3393</h3>
   </div>
   <div>
     <form action="#!" [formGroup]="form">
@@ -26,8 +26,20 @@
           <div>Cena je obavezna!</div>
         </div>
       </div>
+
+      <div>
+        <label for="price" class="labele">Nocenja:</label>
+        <input required id="nights" type="number" class="form-control" style="text-align:center" #newnights
+          placeholder="nights" name="nights" formControlName="nocenjaHotelaForma"
+          [ngClass]="{'is-invalid': form.get('nocenjaHotelaForma').touched && form.get('nocenjaHotelaForma').invalid}">
+        <div class="invalid-feedback">
+          <div>Broj nocenja je obavezno!</div>
+        </div>
+      </div>
+
+
       <button type="submit"
-            (click)="dodajHotel(newtitle,newprice)" [disabled]="!form.valid"> Potvrdi</button>
+            (click)="dodajHotel(newtitle,newprice,newnights)" [disabled]="!form.valid"> Potvrdi</button>
           <button type="submit"
             (click)="changeOrder()">Promena Redosleda</button>
 

@@ -1,3 +1,4 @@
+import { RoomService } from './room-service';
 import { Hotels } from './../hotels';
 import { Component, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators, MinLengthValidator } from '@angular/forms';
@@ -12,14 +13,14 @@ export class AppComponent {
 
   @Input() hotels: Hotels[];
   
-  constructor() { 
+  constructor(private _RoomService: RoomService) { 
      this.hotels = [];
    }
 
 
-   dodajHotel(title: HTMLInputElement, price: HTMLInputElement): boolean {
-    console.log(`Dodavanje hotela, naziv: ${title.value}, cena: ${price.value}`);
-    this.hotels.push(new Hotels(title.value, price.valueAsNumber));
+   dodajHotel(title: HTMLInputElement, price: HTMLInputElement, nights: HTMLInputElement): boolean {
+    console.log(`Dodavanje hotela, naziv: ${title.value}, cena: ${price.value}, broj nocenja: ${nights.value}`);
+    this.hotels.push(new Hotels(title.value, price.valueAsNumber, nights.valueAsNumber));
     return false;
   }
 
@@ -58,8 +59,13 @@ export class AppComponent {
 
   form = new FormGroup({
     nazivHotelaForma: new FormControl('', [Validators.required, Validators.minLength(6)]),
-    cenaHotelaForma: new FormControl('', Validators.required)
+    cenaHotelaForma: new FormControl('', Validators.required),
+    nocenjaHotelaForma: new FormControl('', Validators.required)
   })
+  public getPrice(numberOfNights: number, price, nights) {
+    numberOfNights = ((price * nights))
+    return numberOfNights;
+  }
 
   ngOnInit() {
   }

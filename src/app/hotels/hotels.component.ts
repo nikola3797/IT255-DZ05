@@ -26,7 +26,10 @@ export class HotelsComponent implements OnInit {
   public changeContent(): void {
     this.updateHotel.emit(this.hotel);
   }
-
+  public getPrice(numberOfNights: number, price, nights) {
+    numberOfNights = ((price * nights));
+    return numberOfNights;
+  }
   ngOnInit() {
   }
     

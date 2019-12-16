@@ -1,3 +1,4 @@
+import { RoomService } from './room-service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -23,7 +24,7 @@ import { DodajHotelComponent } from './dodaj-hotel/dodaj-hotel.component';
     ReactiveFormsModule
 
   ],
-  providers: [],
+  providers: [RoomService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

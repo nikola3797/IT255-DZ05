@@ -1,6 +1,8 @@
 <div>
     <h4>Hotel: {{hotel.title}}</h4>
-    <p>Cena: {{hotel.price}}€</p>
+    <h4>Cena: {{hotel.price}}€</h4>
+    <h4>Nocenja: {{hotel.nights}} dan(a)</h4>          
+    <h4>Ukupna Cena: {{hotel.getPrice(price, nights)}}€</h4>
     <div>
 <div>
     <a href ="#"  (click)="changeContent()"  > Promeni sadrzaj </a>
